@@ -5,6 +5,8 @@ const mongoSanitize = require("express-mongo-sanitize"); //for noSql query injec
 const xss = require("xss-clean"); //for XSS attack (remove script tags
 const app = express();
 const userRoutes = require("./routes/userRoute");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJson = require('./swagger.json')
 
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1hr
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use(mongoSanitize())  
 app.use(xss()) 
 app.use(cors(options));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 
 app.use("/api/user",userRoutes);

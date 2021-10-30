@@ -1,0 +1,224 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Leaderboard APIs",
+      "description": "This is Leaderboard backend Swagger REST APIs Documentation.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://leaderboardbackend.herokuapp.com/"
+      }
+  
+    ],
+    "tags": [
+      {
+        "name": "User",
+        "description": "Everything about user"
+      }
+    ],
+    "paths": {
+        "/api/user": {
+          "post": {
+            "tags": ["User"],
+            "summary": "Create User",
+            "requestBody": {
+              "description": "Fields required to add User",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/user"
+                  }
+                }
+              },
+              "required": true
+            },
+       
+            "responses": {
+              "400": {
+                "description": "Invalid ID supplied",
+                "content": {}
+              },
+              "404": {
+                "description": "User not Found",
+                "content": {}
+              },
+              "405": {
+                "description": "Validation exception",
+                "content": {}
+              },
+              "200": {
+                "description": "API succeed",
+                "content": {}
+              }
+            }
+          },
+          "get": {
+            "tags": ["User"],
+            "summary": "Fetch All User",
+          
+            "responses": {
+              "400": {
+                "description": "Invalid ID supplied",
+                "content": {}
+              },
+              "404": {
+                "description": "User not Found",
+                "content": {}
+              },
+              "405": {
+                "description": "Validation exception",
+                "content": {}
+              },
+              "200": {
+                "description": "API succeed",
+                "content": {}
+              },
+              "403": {
+                "description": "You do not have necessary permissions for this resource"
+              }
+            }
+          }
+        },
+        "/api/user/{id}": {
+          "delete": {
+            "tags": ["User"],
+            "summary": "delete User by id",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "_id",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "minimum": 1
+                },
+                "description": "The user ID"
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Invalid ID supplied",
+                "content": {}
+              },
+              "404": {
+                "description": "User not Found",
+                "content": {}
+              },
+              "405": {
+                "description": "Validation exception",
+                "content": {}
+              },
+              "200": {
+                "description": "API succeed",
+                "content": {}
+              },
+              "403": {
+                "description": "You do not have necessary permissions for this resource"
+              }
+            }
+        
+          },
+          "put": {
+            "tags": ["User"],
+            "summary": "Update User",
+            "parameters": [
+              {
+                "in": "path",
+                "name": "userId",
+                "required": true,
+                "schema": {
+                  "type": "string",
+                  "minimum": 1
+                },
+                "description": "The user ID"
+              }
+            ],
+            "requestBody": {
+              "description": "Fields required to Update User",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/updateUser"
+                  }
+                }
+              },
+              "required": true
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "responses": {
+              "400": {
+                "description": "Invalid ID supplied",
+                "content": {}
+              },
+              "404": {
+                "description": "User not Found",
+                "content": {}
+              },
+              "405": {
+                "description": "Validation exception",
+                "content": {}
+              },
+              "200": {
+                "description": "API succeed",
+                "content": {}
+              }
+            },
+            "x-codegen-request-body-name": "body"
+          }
+        }   
+    },
+    "components": {
+      "schemas": {
+        "user": {
+          "required": ["participantName", "location", "date", "units","type","points"],
+          "type": "object",
+          "properties": {
+            "participantName": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string",
+              "format": "date"
+
+            },
+            "units": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "points": {
+              "type": "number"
+            }
+          }
+        },
+        "updateUser":{
+          "type": "object",
+          "properties": {
+            "participantName": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string",
+              "format": "date"
+
+            },
+            "units": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "points": {
+              "type": "number"
+            }
+          }
+        }
+      }
+  } 
+}        
